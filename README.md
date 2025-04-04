@@ -1,14 +1,14 @@
-Project Proposal: NLP Model Benchmarking and Comparison 
+*Project Proposal: NLP Model Benchmarking and Comparison*
 
-Overall Goal 
+**Overall Goal**
 
 The goal of this project is to compare the performance of various NLP models retrained on different datasets to identify the most suitable model for a specific task. This will provide users with insights into the strengths and weaknesses of different models, helping them select the best model for their needs. 
 
-Scope 
+**Scope**
 
 The project will be limited to a prototype that involves: 
 
-Collecting and preprocessing datasets 
+**Collecting and preprocessing datasets**
 
 Retraining three different NLP models (e.g., BERT, GPT, and LSTM-based model) on selected datasets 
 
@@ -16,7 +16,7 @@ Evaluating model performance using standard NLP metrics such as accuracy, F1-sco
 
 Visualizing and benchmarking the results to facilitate easy comparison 
 
-Team Members and NLP Tasks 
+**Team Members and NLP Tasks** 
 
 Akeem: Data Collection, Preprocessing, and Benchmarking 
 
@@ -48,11 +48,11 @@ Visualizing performance metrics
 
 Summarizing results in comparative graphs and tables 
 
-Data Sources 
+**Data Sources** 
 
 [SQuAD](https://huggingface.co/datasets/rajpurkar/squad/viewer/plain_text/train?p=6&views%5B%5D=train)
 
-Approaches 
+**Approaches**
 
 Use transfer learning for model retraining 
 
