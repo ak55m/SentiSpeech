@@ -1,24 +1,24 @@
-*Project Proposal: NLP Model Benchmarking and Comparison*
+# Project Proposal: NLP Model Benchmarking and Comparison 
 
-**Overall Goal**
+### Overall Goal 
 
 The goal of this project is to compare the performance of various NLP models retrained on different datasets to identify the most suitable model for a specific task. This will provide users with insights into the strengths and weaknesses of different models, helping them select the best model for their needs. 
 
-**Scope**
+### Scope 
 
 The project will be limited to a prototype that involves: 
 
-**Collecting and preprocessing datasets**
+### Collecting and preprocessing datasets 
 
-Retraining three different NLP models (e.g., BERT, GPT, and LSTM-based model) on selected datasets 
+- Retraining three different NLP models (e.g., BERT, GPT, and LSTM-based model) on selected datasets 
 
-Evaluating model performance using standard NLP metrics such as accuracy, F1-score, and inference time 
+- Evaluating model performance using standard NLP metrics such as accuracy, F1-score, and inference time 
 
-Visualizing and benchmarking the results to facilitate easy comparison 
+- Visualizing and benchmarking the results to facilitate easy comparison 
 
-**Team Members and NLP Tasks** 
+### Team Members and NLP Tasks 
 
-Akeem: Data Collection, Preprocessing, and Benchmarking 
+#### Akeem: Data Collection, Preprocessing, and Benchmarking 
 
 Gathering datasets from publicly available sources 
 
@@ -28,7 +28,7 @@ Creating data splits for training, validation, and testing
 
 Creating scripts to evaluate model performance on testing datasets 
 
-Hritik Model Training and Fine-Tuning (BERT and LSTM-based model) 
+#### Hritik Model Training and Fine-Tuning (BERT and LSTM-based model) 
 
 Retraining BERT model on selected datasets 
 
@@ -38,7 +38,7 @@ Implementing hyperparameter tuning
 
 Documenting model performance and training time 
 
-Ardhan: Model Training and Fine-Tuning (GPT) and Visualization 
+#### Ardhan: Model Training and Fine-Tuning (GPT) and Visualization 
 
 Retraining GPT model on selected datasets 
 
@@ -48,11 +48,11 @@ Visualizing performance metrics
 
 Summarizing results in comparative graphs and tables 
 
-**Data Sources** 
+### Data Sources 
 
 [SQuAD](https://huggingface.co/datasets/rajpurkar/squad/viewer/plain_text/train?p=6&views%5B%5D=train)
 
-**Approaches**
+### Approaches 
 
 Use transfer learning for model retraining 
 
