@@ -28,7 +28,7 @@ Creating data splits for training, validation, and testing
 
 Creating scripts to evaluate model performance on testing datasets 
 
-#### Hritik Model Training and Fine-Tuning (BERT and LSTM-based model) 
+#### Hritik: Model Training and Fine-Tuning (BERT and LSTM-based model) 
 
 Retraining BERT model on selected datasets 
 
@@ -38,7 +38,7 @@ Implementing hyperparameter tuning
 
 Documenting model performance and training time 
 
-#### Ardhan: Model Training and Fine-Tuning (GPT) and Visualization 
+#### Ardahan: Model Training and Fine-Tuning (GPT) and Visualization 
 
 Retraining GPT model on selected datasets 
 
