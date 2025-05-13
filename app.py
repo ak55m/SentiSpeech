@@ -10,30 +10,33 @@ def index():
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
-    data = request.get_json()
-    text = data.get('text', '')
-    
-    # Split into paragraphs
-    paragraphs = [p for p in text.split('\n') if p.strip()]
-    
-    results = []
-    for paragraph in paragraphs:
-        sentiment_result = analyze_sentiment(paragraph)
-        results.append({
-            'text': paragraph,
-            'sentiment': sentiment_result['sentiment'],
-            'score': sentiment_result['score'],
-            'speechParams': {
-                'rate': calculate_rate(sentiment_result),
-                'pitch': calculate_pitch(sentiment_result),
-                'volume': calculate_volume(sentiment_result)
-            }
+    try:
+        data = request.get_json()
+        text = data.get('text', '')
+        
+        # Split into paragraphs
+        paragraphs = [p for p in text.split('\n') if p.strip()]
+        
+        results = []
+        for paragraph in paragraphs:
+            sentiment_result = analyze_sentiment(paragraph)
+            results.append({
+                'text': paragraph,
+                'sentiment': sentiment_result['sentiment'],
+                'score': sentiment_result['score'],
+                'speechParams': {
+                    'rate': calculate_rate(sentiment_result),
+                    'pitch': calculate_pitch(sentiment_result),
+                    'volume': calculate_volume(sentiment_result)
+                }
+            })
+        
+        return jsonify({
+            'overall': analyze_sentiment(text),
+            'paragraphs': results
         })
-    
-    return jsonify({
-        'overall': analyze_sentiment(text),
-        'paragraphs': results
-    })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 def calculate_rate(sentiment_result):
     # Adjust speech rate based on sentiment
