@@ -19,7 +19,7 @@ def index():
         logger.error(f"Error serving index: {str(e)}")
         return str(e), 500
 
-@app.route('/analyze', methods=['POST'])
+@app.route('/api/analyze', methods=['POST'])
 def analyze():
     try:
         logger.info("Received analyze request")
