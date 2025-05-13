@@ -2,15 +2,23 @@ import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 import os
 import warnings
+import sys
 
 # Suppress deprecation warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Add nltk_data to the path
-nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+nltk_data_path = os.path.join(current_dir, 'nltk_data')
+nltk.data.path.append(nltk_data_path)
 
 # Initialize the sentiment analyzer
-sia = SentimentIntensityAnalyzer()
+try:
+    sia = SentimentIntensityAnalyzer()
+except LookupError:
+    # If the lexicon isn't found, try to download it
+    nltk.download('vader_lexicon', download_dir=nltk_data_path)
+    sia = SentimentIntensityAnalyzer()
 
 def analyze_sentiment(text):
     """
