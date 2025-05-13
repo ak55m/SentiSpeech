@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 from sentiment import analyze_sentiment
 import os
 import logging
@@ -9,6 +10,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+# Enable CORS for all routes
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/')
 def index():
@@ -19,8 +22,15 @@ def index():
         logger.error(f"Error serving index: {str(e)}")
         return str(e), 500
 
-@app.route('/api/analyze', methods=['POST'])
+@app.route('/api/analyze', methods=['POST', 'OPTIONS'])
 def analyze():
+    # Handle preflight requests
+    if request.method == 'OPTIONS':
+        response = app.make_default_options_response()
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response
+
     try:
         logger.info("Received analyze request")
         data = request.get_json()
