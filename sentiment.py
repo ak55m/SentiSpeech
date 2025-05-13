@@ -3,6 +3,11 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 import os
 import warnings
 import sys
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Suppress deprecation warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -10,52 +15,58 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Add nltk_data to the path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 nltk_data_path = os.path.join(current_dir, 'nltk_data')
+logger.info(f"Using NLTK data path: {nltk_data_path}")
 nltk.data.path.append(nltk_data_path)
 
 # Initialize the sentiment analyzer
 try:
     sia = SentimentIntensityAnalyzer()
-except LookupError:
-    # If the lexicon isn't found, try to download it
-    nltk.download('vader_lexicon', download_dir=nltk_data_path)
-    sia = SentimentIntensityAnalyzer()
+    logger.info("Successfully initialized SentimentIntensityAnalyzer")
+except Exception as e:
+    logger.error(f"Error initializing SentimentIntensityAnalyzer: {str(e)}")
+    raise
 
 def analyze_sentiment(text):
     """
     Analyze the sentiment of the given text.
     Returns a dictionary with sentiment label and score.
     """
-    if not text.strip():
-        return {'sentiment': 'neutral', 'score': 0.5}
-    
-    scores = sia.polarity_scores(text)
-    
-    # Determine sentiment based on compound score
-    compound = scores['compound']
-    
-    if compound >= 0.05:
-        sentiment = 'positive'
-        # Normalize score for positive sentiment (0.05 to 1 -> 0.5 to 1)
-        score = 0.5 + (compound - 0.05) * 0.5 / 0.95
-    elif compound <= -0.05:
-        sentiment = 'negative'
-        # Normalize score for negative sentiment (-0.05 to -1 -> 0.5 to 1)
-        score = 0.5 + (abs(compound) - 0.05) * 0.5 / 0.95
-    else:
-        sentiment = 'neutral'
-        # Normalize score for neutral sentiment (-0.05 to 0.05 -> 0 to 0.5)
-        score = 0.5 * (compound + 0.05) / 0.1
-    
-    return {
-        'sentiment': sentiment,
-        'score': round(score, 2),
-        'details': {
-            'positive': scores['pos'],
-            'negative': scores['neg'],
-            'neutral': scores['neu'],
-            'compound': scores['compound']
+    try:
+        if not text.strip():
+            return {'sentiment': 'neutral', 'score': 0.5}
+        
+        scores = sia.polarity_scores(text)
+        logger.info(f"Sentiment scores: {scores}")
+        
+        # Determine sentiment based on compound score
+        compound = scores['compound']
+        
+        if compound >= 0.05:
+            sentiment = 'positive'
+            # Normalize score for positive sentiment (0.05 to 1 -> 0.5 to 1)
+            score = 0.5 + (compound - 0.05) * 0.5 / 0.95
+        elif compound <= -0.05:
+            sentiment = 'negative'
+            # Normalize score for negative sentiment (-0.05 to -1 -> 0.5 to 1)
+            score = 0.5 + (abs(compound) - 0.05) * 0.5 / 0.95
+        else:
+            sentiment = 'neutral'
+            # Normalize score for neutral sentiment (-0.05 to 0.05 -> 0 to 0.5)
+            score = 0.5 * (compound + 0.05) / 0.1
+        
+        return {
+            'sentiment': sentiment,
+            'score': round(score, 2),
+            'details': {
+                'positive': scores['pos'],
+                'negative': scores['neg'],
+                'neutral': scores['neu'],
+                'compound': scores['compound']
+            }
         }
-    }
+    except Exception as e:
+        logger.error(f"Error in analyze_sentiment: {str(e)}")
+        raise
 
 # For more advanced implementations:
 # Uncomment if you want to use a transformer model instead

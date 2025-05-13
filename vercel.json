@@ -16,5 +16,5 @@
             "dest": "app.py"
         }
     ],
-    "buildCommand": "python download_nltk.py"
+    "buildCommand": "pip install -r requirements.txt && python download_nltk.py"
 } 
