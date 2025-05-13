@@ -16,5 +16,5 @@
             "dest": "app.py"
         }
     ],
-    "buildCommand": "pip install -r requirements.txt && python download_nltk.py"
+    "buildCommand": "chmod +x vercel-build.sh && ./vercel-build.sh"
 } 
