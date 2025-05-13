@@ -14,8 +14,4 @@
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild" 200
+  status = 200 200
