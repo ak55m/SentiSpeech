@@ -1,18 +1,35 @@
 from flask import Flask, render_template, request, jsonify
 from sentiment import analyze_sentiment
 import os
+import logging
+import sys
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    try:
+        logger.info("Serving index page")
+        return render_template('index.html')
+    except Exception as e:
+        logger.error(f"Error serving index: {str(e)}")
+        return str(e), 500
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
     try:
+        logger.info("Received analyze request")
         data = request.get_json()
+        if not data:
+            logger.error("No JSON data received")
+            return jsonify({"error": "No JSON data received"}), 400
+            
         text = data.get('text', '')
+        logger.info(f"Analyzing text: {text[:100]}...")  # Log first 100 chars
         
         # Split into paragraphs
         paragraphs = [p for p in text.split('\n') if p.strip()]
@@ -31,48 +48,59 @@ def analyze():
                 }
             })
         
+        logger.info(f"Analysis complete. Results: {results}")
         return jsonify({
             'overall': analyze_sentiment(text),
             'paragraphs': results
         })
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error in analyze endpoint: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 def calculate_rate(sentiment_result):
-    # Adjust speech rate based on sentiment
-    sentiment = sentiment_result['sentiment']
-    score = sentiment_result['score']
-    
-    if sentiment == 'positive':
-        return 1.1 + (score * 0.2)  # Slightly faster for positive
-    elif sentiment == 'negative':
-        return 0.9 - (score * 0.1)  # Slightly slower for negative
-    else:
-        return 1.0  # Neutral rate
+    try:
+        sentiment = sentiment_result['sentiment']
+        score = sentiment_result['score']
+        
+        if sentiment == 'positive':
+            return 1.1 + (score * 0.2)
+        elif sentiment == 'negative':
+            return 0.9 - (score * 0.1)
+        else:
+            return 1.0
+    except Exception as e:
+        logger.error(f"Error calculating rate: {str(e)}")
+        return 1.0
 
 def calculate_pitch(sentiment_result):
-    # Adjust pitch based on sentiment
-    sentiment = sentiment_result['sentiment']
-    score = sentiment_result['score']
-    
-    if sentiment == 'positive':
-        return 1.1 + (score * 0.2)  # Higher pitch for positive
-    elif sentiment == 'negative':
-        return 0.9 - (score * 0.1)  # Lower pitch for negative
-    else:
-        return 1.0  # Neutral pitch
+    try:
+        sentiment = sentiment_result['sentiment']
+        score = sentiment_result['score']
+        
+        if sentiment == 'positive':
+            return 1.1 + (score * 0.2)
+        elif sentiment == 'negative':
+            return 0.9 - (score * 0.1)
+        else:
+            return 1.0
+    except Exception as e:
+        logger.error(f"Error calculating pitch: {str(e)}")
+        return 1.0
 
 def calculate_volume(sentiment_result):
-    # Adjust volume based on sentiment
-    sentiment = sentiment_result['sentiment']
-    score = sentiment_result['score']
-    
-    if sentiment == 'positive' and score > 0.7:
-        return 1.2  # Louder for very positive
-    elif sentiment == 'negative' and score > 0.7:
-        return 0.9  # Softer for very negative
-    else:
-        return 1.0  # Neutral volume
+    try:
+        sentiment = sentiment_result['sentiment']
+        score = sentiment_result['score']
+        
+        if sentiment == 'positive' and score > 0.7:
+            return 1.2
+        elif sentiment == 'negative' and score > 0.7:
+            return 0.9
+        else:
+            return 1.0
+    except Exception as e:
+        logger.error(f"Error calculating volume: {str(e)}")
+        return 1.0
 
 # This is the entry point for Vercel
 app = app
