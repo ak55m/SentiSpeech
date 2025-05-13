@@ -14,6 +14,92 @@ document.addEventListener('DOMContentLoaded', function() {
     const voiceSelect = document.getElementById('voice-select');
     const rateRange = document.getElementById('rate-range');
     
+    // Add loading overlay
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.id = 'loading-overlay';
+    loadingOverlay.innerHTML = `
+        <div class="loading-content">
+            <div class="spinner-border text-primary mb-3" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h4>Waking up the server...</h4>
+            <p class="text-muted">This may take up to 60 seconds if the server was sleeping.</p>
+        </div>
+    `;
+    document.body.appendChild(loadingOverlay);
+
+    // Add loading overlay styles
+    const style = document.createElement('style');
+    style.textContent = `
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loading-content {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Check server status
+    async function checkServerStatus() {
+        try {
+            const response = await fetch('/api/analyze', {
+                method: 'OPTIONS'
+            });
+            return response.ok;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // Show loading overlay
+    function showLoading() {
+        loadingOverlay.style.display = 'flex';
+    }
+
+    // Hide loading overlay
+    function hideLoading() {
+        loadingOverlay.style.display = 'none';
+    }
+
+    // Initialize server status check
+    async function initializeServer() {
+        showLoading();
+        let attempts = 0;
+        const maxAttempts = 10;
+        const checkInterval = 5000; // 5 seconds
+
+        while (attempts < maxAttempts) {
+            const isServerReady = await checkServerStatus();
+            if (isServerReady) {
+                hideLoading();
+                return true;
+            }
+            attempts++;
+            await new Promise(resolve => setTimeout(resolve, checkInterval));
+        }
+
+        hideLoading();
+        alert('Server is taking longer than expected to respond. Please try refreshing the page.');
+        return false;
+    }
+
+    // Initialize server on page load
+    initializeServer();
+
     // Chart.js instance
     let sentimentChart = null;
     
@@ -41,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             // Show loading state
+            showLoading();
             textForm.querySelector('button[type="submit"]').disabled = true;
             textForm.querySelector('button[type="submit"]').innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyzing...';
             
@@ -61,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('An error occurred while analyzing the text. Please try again.');
         } finally {
             // Reset button state
+            hideLoading();
             textForm.querySelector('button[type="submit"]').disabled = false;
             textForm.querySelector('button[type="submit"]').innerHTML = '<i class="fas fa-magic me-2"></i>Analyze & Read';
         }
