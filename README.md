@@ -66,7 +66,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Then visit `http://localhost:5000` in your browser.
+Then visit `http://localhost:8080` in your browser.
 
 ### Docker Deployment
 

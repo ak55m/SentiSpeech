@@ -74,6 +74,6 @@ def calculate_volume(sentiment_result):
 
 if __name__ == '__main__':
     print("SentiSpeech server is starting...")
-    print("Navigate to http://localhost:5000 to use the application")
-    port = int(os.environ.get('PORT', 5000))
+    print("Navigate to http://localhost:8080 to use the application")
+    port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port, debug=True)
