@@ -1,6 +1,5 @@
 """
-Deployment script for Netlify Functions
-This file sets up the Netlify function to handle sentiment analysis
+Netlify serverless function for SentiSpeech sentiment analysis
 """
 
 import json
@@ -11,41 +10,31 @@ import warnings
 # Suppress deprecation warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-# Initialize NLTK components - updated for newer Python compatibility
-def initialize_nltk():
-    try:
-        nltk.data.find('vader_lexicon')
-    except (LookupError, OSError):
-        nltk.download('vader_lexicon', quiet=True)
+# Initialize NLTK components
+try:
+    nltk.data.find('vader_lexicon')
+except (LookupError, OSError):
+    nltk.download('vader_lexicon', quiet=True)
 
-# Initialize
-initialize_nltk()
+# Initialize the sentiment analyzer
 sia = SentimentIntensityAnalyzer()
 
 def analyze_sentiment(text):
-    """
-    Analyze the sentiment of the given text.
-    Returns a dictionary with sentiment label and score.
-    """
+    """Analyze the sentiment of the given text."""
     if not text.strip():
         return {'sentiment': 'neutral', 'score': 0.5}
     
     scores = sia.polarity_scores(text)
-    
-    # Determine sentiment based on compound score
     compound = scores['compound']
     
     if compound >= 0.05:
         sentiment = 'positive'
-        # Normalize score for positive sentiment (0.05 to 1 -> 0.5 to 1)
         score = 0.5 + (compound - 0.05) * 0.5 / 0.95
     elif compound <= -0.05:
         sentiment = 'negative'
-        # Normalize score for negative sentiment (-0.05 to -1 -> 0.5 to 1)
         score = 0.5 + (abs(compound) - 0.05) * 0.5 / 0.95
     else:
         sentiment = 'neutral'
-        # Normalize score for neutral sentiment (-0.05 to 0.05 -> 0 to 0.5)
         score = 0.5 * (compound + 0.05) / 0.1
     
     return {
@@ -60,7 +49,7 @@ def analyze_sentiment(text):
     }
 
 def calculate_rate(sentiment_result):
-    # Adjust speech rate based on sentiment
+    """Calculate speech rate based on sentiment."""
     sentiment = sentiment_result['sentiment']
     score = sentiment_result['score']
     
@@ -72,7 +61,7 @@ def calculate_rate(sentiment_result):
         return 1.0  # Neutral rate
 
 def calculate_pitch(sentiment_result):
-    # Adjust pitch based on sentiment
+    """Calculate speech pitch based on sentiment."""
     sentiment = sentiment_result['sentiment']
     score = sentiment_result['score']
     
@@ -84,7 +73,7 @@ def calculate_pitch(sentiment_result):
         return 1.0  # Neutral pitch
 
 def calculate_volume(sentiment_result):
-    # Adjust volume based on sentiment
+    """Calculate speech volume based on sentiment."""
     sentiment = sentiment_result['sentiment']
     score = sentiment_result['score']
     
@@ -97,20 +86,23 @@ def calculate_volume(sentiment_result):
 
 def handler(event, context):
     """Netlify Function handler for SentiSpeech."""
-    # Parse request body
     try:
+        # Check for correct HTTP method
         if event['httpMethod'] != 'POST':
             return {
                 'statusCode': 405,
+                'headers': {'Content-Type': 'application/json'},
                 'body': json.dumps({'error': 'Method not allowed'})
             }
         
+        # Parse request body
         body = json.loads(event['body'])
         text = body.get('text', '')
         
         # Split into paragraphs
         paragraphs = [p for p in text.split('\n') if p.strip()]
         
+        # Process each paragraph
         results = []
         for paragraph in paragraphs:
             sentiment_result = analyze_sentiment(paragraph)
@@ -125,11 +117,13 @@ def handler(event, context):
                 }
             })
         
+        # Create response
         response_data = {
             'overall': analyze_sentiment(text),
             'paragraphs': results
         }
         
+        # Return success response
         return {
             'statusCode': 200,
             'headers': {
@@ -140,7 +134,10 @@ def handler(event, context):
         }
         
     except Exception as e:
+        # Return error response
+        print(f"Error: {str(e)}")
         return {
             'statusCode': 500,
+            'headers': {'Content-Type': 'application/json'},
             'body': json.dumps({'error': str(e)})
         }
