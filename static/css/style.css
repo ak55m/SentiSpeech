@@ -1,0 +1,104 @@
+/* Main Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Text input styles */
+#text-input {
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 150px;
+    border-color: #ced4da;
+    transition: border-color 0.2s ease-in-out;
+}
+
+#text-input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Sentiment visualization */
+#sentiment-chart {
+    max-height: 250px;
+}
+
+#chart-placeholder {
+    padding: 40px 0;
+}
+
+/* Paragraph results */
+.paragraph-item {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 5px solid #ccc;
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.paragraph-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.paragraph-item.positive {
+    border-left-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.05);
+}
+
+.paragraph-item.negative {
+    border-left-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+.paragraph-item.neutral {
+    border-left-color: #6c757d;
+    background-color: rgba(108, 117, 125, 0.05);
+}
+
+.paragraph-sentiment {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.paragraph-sentiment .progress {
+    height: 6px;
+    width: 100px;
+    margin: 0 10px;
+}
+
+/* Speech controls */
+.form-range {
+    width: 120px;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.is-speaking {
+    animation: pulse 1s infinite;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    #sentiment-chart {
+        max-height: 200px;
+    }
+}

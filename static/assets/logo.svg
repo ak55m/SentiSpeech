@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g id="SentiSpeech-Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Background" fill="#4A89DC" cx="100" cy="100" r="100"></circle>
+        <g id="Sound-Wave" transform="translate(50.000000, 50.000000)" fill="#FFFFFF">
+            <rect id="Center-Line" x="46" y="0" width="8" height="100" rx="4"></rect>
+            <rect id="Left-Line-1" x="26" y="15" width="8" height="70" rx="4"></rect>
+            <rect id="Left-Line-2" x="6" y="30" width="8" height="40" rx="4"></rect>
+            <rect id="Right-Line-1" x="66" y="15" width="8" height="70" rx="4"></rect>
+            <rect id="Right-Line-2" x="86" y="30" width="8" height="40" rx="4"></rect>
+        </g>
+        <g id="Emotions" transform="translate(70.000000, 70.000000)">
+            <circle id="Emotions-BG" fill="#FFFFFF" cx="30" cy="30" r="30"></circle>
+            <path d="M30,54 C43.254,54 54,43.254 54,30 C54,16.746 43.254,6 30,6 C16.746,6 6,16.746 6,30 C6,43.254 16.746,54 30,54 Z" id="Face" fill="#FFCC4D"></path>
+            <path d="M30,47 C38.667,47 46,42.667 46,36 L14,36 C14,42.667 21.333,47 30,47 Z" id="Smile" fill="#664500"></path>
+            <path d="M22,27 C22,29.209 20.209,31 18,31 C15.791,31 14,29.209 14,27 C14,24.791 15.791,23 18,23 C20.209,23 22,24.791 22,27" id="Left-Eye" fill="#664500"></path>
+            <path d="M46,27 C46,29.209 44.209,31 42,31 C39.791,31 38,29.209 38,27 C38,24.791 39.791,23 42,23 C44.209,23 46,24.791 46,27" id="Right-Eye" fill="#664500"></path>
+        </g>
+    </g>
+</svg>
