@@ -1,12 +1,12 @@
 # SentiSpeech: Tone-Aware Text Reader
 
-![SentiSpeech Banner](https://github.com/ahritik/SentiSpeech/raw/master/static/assets/banner.png)
+![SentiSpeech Banner](https://github.com/ahritik/SentiSpeech/raw/master/static/assets/logo.svg)
 
 ## 🚀 Overview
 
 SentimentSpeech is a powerful web application that analyzes text sentiment and reads content aloud with emotionally appropriate tone. By combining natural language processing with speech synthesis, SentimentSpeech bridges the gap between written text and emotional speech.
 
-**Try it live:** [sentispeech.surge.sh](https://sentispeech.surge.sh) (demo version)
+**Try it live:** [sentispeech.netlify.app](https://sentispeech.netlify.app) (demo version)
 
 [![GitHub stars](https://img.shields.io/github/stars/ahritik/SentiSpeech?style=social)](https://github.com/ahritik/SentiSpeech)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
