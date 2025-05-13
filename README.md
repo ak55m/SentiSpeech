@@ -1,6 +1,6 @@
 # SentiSpeech: Tone-Aware Text Reader
 
-![SentiSpeech Banner](https://github.com/ahritik/SentiSpeech/raw/master/static/assets/logo.svg)
+![SentiSpeech Logo](https://github.com/ahritik/SentiSpeech/blob/main/static/assets/logo.svg)
 
 ## 🚀 Overview
 
