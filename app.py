@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from sentiment import analyze_sentiment
 import os
-import asyncio
 
 app = Flask(__name__)
 
@@ -71,6 +70,9 @@ def calculate_volume(sentiment_result):
         return 0.9  # Softer for very negative
     else:
         return 1.0  # Neutral volume
+
+# This is the entry point for Vercel
+app = app
 
 if __name__ == '__main__':
     print("SentiSpeech server is starting...")
