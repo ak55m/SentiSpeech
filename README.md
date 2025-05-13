@@ -8,7 +8,7 @@ SentimentSpeech is a powerful web application that analyzes text sentiment and r
 
 **Try it live:** [sentiment-speech.surge.sh](https://sentiment-speech.surge.sh) (demo version)
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/sentiment-speech?style=social)](https://github.com/ahritik/SentiSpeech)
+[![GitHub stars](https://img.shields.io/github/stars/ahritik/sentiment-speech?style=social)](https://github.com/ahritik/SentiSpeech)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -52,7 +52,7 @@ SentimentSpeech is a powerful web application that analyzes text sentiment and r
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/sentiment-speech.git
+git clone https://github.com/ahritik/sentiment-speech.git
 cd sentiment-speech
 
 # Create and activate a virtual environment
@@ -197,5 +197,4 @@ sentiment-speech/
 - Hritik Arasu - Project Lead
 - Ardahan Dogru - Backend Developer
 - Akeem Mohammed - Frontend Developer
-
 
