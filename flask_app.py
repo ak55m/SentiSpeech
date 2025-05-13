@@ -24,15 +24,18 @@ def index():
 
 @app.route('/api/analyze', methods=['POST', 'OPTIONS'])
 def analyze():
+    logger.info(f"Received {request.method} request to /api/analyze")
+    
     # Handle preflight requests
     if request.method == 'OPTIONS':
+        logger.info("Handling OPTIONS request")
         response = app.make_default_options_response()
         response.headers.add('Access-Control-Allow-Methods', 'POST')
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         return response
 
     try:
-        logger.info("Received analyze request")
+        logger.info("Processing POST request")
         data = request.get_json()
         if not data:
             logger.error("No JSON data received")
