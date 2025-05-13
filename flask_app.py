@@ -102,8 +102,11 @@ def calculate_volume(sentiment_result):
         logger.error(f"Error calculating volume: {str(e)}")
         return 1.0
 
+# This is the application variable that PythonAnywhere will use
+application = app
+
 if __name__ == '__main__':
     print("SentiSpeech server is starting...")
     print("Navigate to http://localhost:8080 to use the application")
     port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True) 

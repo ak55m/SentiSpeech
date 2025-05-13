@@ -45,20 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             textForm.querySelector('button[type="submit"]').innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyzing...';
             
             // Call API to analyze text
-            const response = await fetch('/analyze', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text })
-            });
-            
-            if (!response.ok) {
-                throw new Error('Failed to analyze text');
-            }
-            
-            // Get analysis results
-            analysisResults = await response.json();
+            analysisResults = await analyzeText(text);
             
             // Display results
             displayResults(analysisResults);
@@ -227,5 +214,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Helper function to capitalize first letter
     function capitalize(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    async function analyzeText(text) {
+        try {
+            const response = await fetch('/api/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
     }
 });
