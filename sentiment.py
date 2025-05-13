@@ -6,15 +6,10 @@ import warnings
 # Suppress deprecation warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-# Initialize NLTK components - updated for newer Python compatibility
-def initialize_nltk():
-    try:
-        nltk.data.find('vader_lexicon')
-    except (LookupError, OSError):
-        nltk.download('vader_lexicon', quiet=True)
+# Add nltk_data to the path
+nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
 
 # Initialize the sentiment analyzer
-initialize_nltk()
 sia = SentimentIntensityAnalyzer()
 
 def analyze_sentiment(text):
