@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function analyzeText(text) {
         try {
-            const response = await fetch('https://akeem5.pythonanywhere.com/api/analyze', {
+            const response = await fetch('/api/analyze', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
