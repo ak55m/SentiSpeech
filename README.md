@@ -6,9 +6,9 @@
 
 SentimentSpeech is a powerful web application that analyzes text sentiment and reads content aloud with emotionally appropriate tone. By combining natural language processing with speech synthesis, SentimentSpeech bridges the gap between written text and emotional speech.
 
-**Try it live:** [sentiment-speech.surge.sh](https://sentiment-speech.surge.sh) (demo version)
+**Try it live:** [sentispeech.surge.sh](https://sentispeech.surge.sh) (demo version)
 
-[![GitHub stars](https://img.shields.io/github/stars/ahritik/sentiment-speech?style=social)](https://github.com/ahritik/SentiSpeech)
+[![GitHub stars](https://img.shields.io/github/stars/ahritik/SentiSpeech?style=social)](https://github.com/ahritik/SentiSpeech)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -24,7 +24,7 @@ SentimentSpeech is a powerful web application that analyzes text sentiment and r
 
 ## 🎥 Demo Video
 
-[![SentimentSpeech Demo Video]()]()
+[![SentiSpeech Demo Video]()]()
 
 ## 💻 Technology Stack
 
@@ -52,8 +52,8 @@ SentimentSpeech is a powerful web application that analyzes text sentiment and r
 
 ```bash
 # Clone the repository
-git clone https://github.com/ahritik/sentiment-speech.git
-cd sentiment-speech
+git clone https://github.com/ahritik/SentiSpeech.git
+cd SentiSpeech
 
 # Create and activate a virtual environment
 python -m venv venv
@@ -72,10 +72,10 @@ Then visit `http://localhost:5000` in your browser.
 
 ```bash
 # Build the Docker image
-docker build -t sentiment-speech .
+docker build -t SentiSpeech .
 
 # Run the container
-docker run -p 8080:8080 sentiment-speech
+docker run -p 8080:8080 SentiSpeech
 ```
 
 Then visit `http://localhost:8080` in your browser.
@@ -168,7 +168,7 @@ SentimentSpeech overcomes several technical challenges:
 ## 📋 Project Structure
 
 ```
-sentiment-speech/
+SentiSpeech/
 ├── app.py                  # Flask application
 ├── sentiment.py            # Sentiment analysis module
 ├── static/                 # Frontend assets
